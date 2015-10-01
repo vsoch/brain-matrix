@@ -72,7 +72,8 @@ d3.tsv("data/data.tsv", function(error,data) {
         .attr("width",15)
         .attr("height",15)
         .on('mouseover.color', function(d) {
-            d3.select(this).style("fill", "red");
+            var color = cacolors[Math.floor(Math.random() * cacolors.length)];  
+            d3.select(this).style("fill", color);
         })
         .on('mouseover.size', function(d) {
             d3.select(this).attr("r", 15);
@@ -96,12 +97,16 @@ var width = q.width=s.width;
 var height = q.height;
 var yPositions = Array(300).join(0).split('');
 var ctx=q.getContext('2d');
+var background = new Image();
+background.src = "data/ca.png";
 
 var draw = function () {
   ctx.fillStyle='rgba(0,0,0,.05)';
   ctx.fillRect(0,0,width,height);
-  ctx.fillStyle='#00B4FF';
+  var color = cacolors[Math.floor(Math.random() * cacolors.length)];         
+  ctx.fillStyle=color;
   ctx.font = '10pt Georgia';
+  ctx.drawImage(background,1200,150,200,70);   
   var randomConcept = concepts[Math.floor(Math.random() * concepts.length)];
   yPositions.map(function(y, index){
     if (index<randomConcept.length){
