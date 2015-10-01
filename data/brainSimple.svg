@@ -1,135 +1,7 @@
-<html><head>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
- <meta charset="utf-8">
- <title>Cognitive Atlas: The Matrix</title>
- <!-- Poldracklab... will you take the blue brain, or the red brain? -->
-  <script type="text/javascript" src="js/d3.v3.js"></script>
-  <script type="text/javascript" src="js/tipsy.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
-  <link src="style.css" type="text/css"/>
-</head>
- <body>
- <canvas id="q" width="1600px" height="1600px">Sorry Browser Won't Support</canvas><br/><br/>
- <div id="plot" style="z-index:10;position:absolute;left:0px;top:0px"></div>
- <button id="play">Play</button>
- <button id="pause">pause</button>
- <script type="text/javascript">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
 
-
-// Set height and width
-h = 1600;
-w = 1600;
-
-// Create canvas
-svg = d3.select("#plot")
-    .append("svg")
-    .attr("height",h)
-    .attr("width",w)
-           
-// This is a function for tooltips
-var tip = d3.tip()
-    .attr('class', 'd3-tip')
-    .offset([-10, 0])
-    .html(function(d) {
-        return "<strong><div style='width:200px;height:100px'><span style='color:aqua'>" + d.concept + "</span><br><span style='color:yellow'>" + d.definition +"</div></strong>";
-    })
-
-// Call tooltips function
-svg.call(tip);
-
-
-// Read in tsv file to "data"
-d3.tsv("data/data.tsv", function(error,data) {
-    data.forEach(function(d) {
-        //console.log(d);
-    })
-    // Return any errors
-    if(error){
-        return console.log(error);
-    }
-
-    // Create a brain path for each data element
-    svg.selectAll("path")
-        .data(data)
-        .enter()
-        .append("svg:a")
-            .attr("xlink:href", function(d){return "http://www.cognitiveatlas.org/term/id/" + d.id;})
-        .append("svg:g")
-        .append("svg:path")
-        .attr("d",function(d){
-           var pathy = $("#brainpath").attr("d").split(" ")
-           pathy[1] = 50*d.Y + "," + 60*d.X;
-           return pathy.join(" ")
-         })
-        .attr("width",15)
-        .attr("height",15)
-        .on('mouseout.tip', tip.hide)
-        .on('mouseover.tip', tip.show)
-        .on('mouseover.color', function(d) {
-            d3.select(this).style("fill", "red");
-        })
-        .on('mouseover.size', function(d) {
-            d3.select(this).attr("r", 15);
-        })
-        .on('mouseout.size', function(d) {
-            d3.select(this).attr("r", 10);
-        })
-
-        .transition()
-        .attr("x",10)
-
-    }); // End of file
-   
-</script>
-       
-<script>
-$(document).ready(function(){
-
-
-var s=window.screen;
-var width = q.width=s.width;
-var height = q.height;
-var yPositions = Array(300).join(0).split('');
-var ctx=q.getContext('2d');
-
-var draw = function () {
-  ctx.fillStyle='rgba(0,0,0,.05)';
-  ctx.fillRect(0,0,width,height);
-  ctx.fillStyle='#00B4FF';
-  ctx.font = '10pt Georgia';
-  yPositions.map(function(y, index){
-    text = String.fromCharCode(1e2+Math.random()*33);
-    x = (index * 10)+10;
-    q.getContext('2d').fillText(text, x, y);
- if(y > 100 + Math.random()*1e4)
- {
-   yPositions[index]=0;
- }
- else
- {
-      yPositions[index] = y + 10;
- }
-  });
-};
-RunMatrix();
-function RunMatrix()
-{
-if(typeof Game_Interval != "undefined") clearInterval(Game_Interval);
- Game_Interval = setInterval(draw, 33);
-}
-function StopMatrix()
-{
-clearInterval(Game_Interval);
-}
-//setInterval(draw, 33);
-$("button#pause").click(function(){
-StopMatrix();});
-$("button#play").click(function(){RunMatrix();});
- 
-})
-</script>
 <svg
-   id = "brain"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -184,11 +56,9 @@ $("button#play").click(function(){RunMatrix();});
      id="g2987"
      transform="translate(-15.038135,-240.64831)">
     <path
-       id = "brainpath"
        style="fill:#070707"
        d="m 20.626033,255.61419 c -1.146148,-0.32219 -2.480447,-0.78184 -2.982912,-1.96751 -0.333936,-0.99876 0.753664,-1.51954 1.561953,-1.57205 0.613412,-0.16815 0.236233,-0.71342 -0.194126,-0.30921 -0.786197,0.42199 -1.680106,1.11494 -2.612561,0.71313 -0.970084,-0.44044 -0.983851,-1.83132 -0.158929,-2.42122 0.772848,-0.74488 1.602418,-0.0674 1.948549,0.6373 0.499436,-0.40012 0.163377,-1.72126 -0.606324,-1.40481 -0.595239,0.54543 -1.634337,0.87592 -2.188141,0.0851 -0.458274,-0.91177 0.918124,-1.29129 1.598818,-1.24641 1.654033,-0.13306 3.307976,0.28862 4.809052,0.96225 0.414914,0.96418 -1.028051,0.86707 -1.595825,0.9873 0.668842,0.33546 1.720313,-0.26144 2.100929,0.65753 0.555454,0.8601 -0.963945,1.27651 -0.250193,2.1231 0.467954,0.93409 -0.777032,0.9663 -1.354889,1.15602 -0.129487,0.17574 0.86986,-0.0475 1.143857,0.22335 0.776688,0.41064 0.305153,1.65239 -0.54083,1.52982 -0.230577,-0.0181 -0.455085,-0.0949 -0.678428,-0.15372 z m 2.999872,0.0152 c -0.974862,0.16047 -0.95937,-1.3483 -0.182025,-1.59375 0.401618,-0.089 1.425041,0.71378 1.336552,-0.0237 -0.677241,-0.0908 -1.618712,0.16777 -1.878533,-0.75984 -0.325571,-0.51033 0.435551,-1.03195 0.592036,-0.94602 -0.864803,-0.33418 -1.034801,-1.85167 -0.07408,-2.168 0.349551,-0.0854 1.209861,0.23269 1.175727,-0.0518 -0.559599,0.052 -2.027538,-0.21836 -1.298765,-0.98379 0.767031,-0.46217 1.693047,-0.55523 2.546061,-0.78604 1.187857,-0.25927 2.497356,-0.3912 3.615578,0.1856 0.739205,0.53986 0.04745,1.72471 -0.779466,1.16585 -0.655299,-0.22289 -1.912949,-0.78613 -2.131374,0.25243 -0.281174,0.52082 0.586816,1.36384 0.598992,0.46161 -0.07915,-0.80703 0.943215,-0.91405 1.431012,-0.49407 0.824012,0.53652 1.092205,1.96252 0.162012,2.53359 -0.856167,0.42388 -1.714908,-0.24399 -2.470034,-0.60052 -0.386682,-0.41564 -1.2336,0.11789 -0.39443,0.28231 0.689998,0.20388 1.884707,0.50407 1.645945,1.46117 -0.277219,1.14826 -1.536817,1.56766 -2.538962,1.8593 -0.441156,0.12374 -0.897154,0.20468 -1.356245,0.20571 z m -0.0096,-6.88577 c -0.933983,-0.25628 -0.93785,-1.42885 -0.61871,-2.16034 0.0527,-0.71613 0.133126,-1.81075 1.070888,-1.85171 0.786224,-0.0919 1.740737,0.55371 1.582267,1.41886 -0.451105,0.46842 0.22107,0.89758 0.339009,0.20942 0.34391,-0.71986 -0.149791,-1.62392 -0.95102,-1.68983 -0.778038,-0.13433 -1.786379,0.12772 -2.312813,-0.63182 -0.494115,-0.73888 0.329299,-1.42113 0.50065,-2.0878 -0.254318,-0.67704 -0.06117,-1.57064 0.818694,-1.52209 0.946403,-0.0296 1.768188,0.80739 1.859959,1.71438 0.04285,0.56219 -0.923259,0.92758 -0.77696,1.332 0.628502,-0.27061 0.719276,-1.53551 1.679466,-1.38647 1.039365,0.66942 -0.520391,1.64066 -0.314574,2.50875 -0.163953,0.96237 1.208054,1.4543 1.802016,0.76955 0.657521,-0.36209 1.657982,0.6255 1.071305,1.18106 -0.153028,0.21693 -1.012853,0.15373 -0.350488,0.27385 0.842067,0.2167 0.895749,1.42672 -0.124658,1.22534 -1.240374,0.0288 -2.5511,-0.63783 -3.733554,-0.003 -0.457834,0.33659 -0.98409,0.58403 -1.541477,0.69996 z m -2.725043,-0.0906 c -1.296128,-1.02657 -3.192233,-1.18708 -4.661085,-0.44332 -1.081242,0.0114 -0.781989,-1.88908 0.24771,-1.47119 -0.12829,0.21725 -1.385368,-0.54072 -0.789992,-1.10744 0.806799,-0.58762 1.782085,0.53388 2.583345,-0.2618 1.017824,-0.70969 -0.05333,-1.62788 -0.467515,-2.30102 -0.360406,-0.94398 1.170726,-1.61462 1.397648,-0.54378 -0.344481,0.47413 0.565465,1.2365 0.80785,0.8546 -0.48329,-0.40206 -0.965735,-0.97876 -0.766411,-1.67278 0.129105,-0.91482 1.145433,-1.49027 2.008288,-1.18357 1.098026,0.2028 0.690615,1.35908 0.891331,2.07438 0.765309,0.64581 0.07876,1.82777 -0.7567,2.0075 -0.780769,0.28371 -2.060176,-0.21614 -2.33836,0.89603 -0.266289,0.60023 0.171137,1.65577 0.826716,1.53291 -0.414685,-0.49352 -0.557538,-1.19257 -0.13397,-1.73112 0.416013,-0.66029 1.511594,-0.8829 1.981103,-0.1645 0.641967,0.8211 0.740133,1.97496 0.523619,2.95891 -0.244995,0.46571 -0.845479,0.77112 -1.353577,0.55619 z M 17.2397,245.39356 c -1.072952,0.27496 -1.216076,-1.27815 -0.658578,-1.87804 0.58908,-0.84917 1.883564,-0.18768 1.744161,0.77489 0.04665,0.59782 -0.409348,1.3062 -1.085583,1.10315 z m 9.773719,-0.0866 c -0.654062,-0.71451 -0.173888,-2.05281 0.762127,-2.2381 0.824778,0.18967 1.173912,1.36109 0.781679,2.05106 -0.34322,0.48085 -1.089738,0.54042 -1.543806,0.18704 z"
        id="path3153"
        inkscape:connector-curvature="0" />
   </g>
 </svg>
-</body></html>
