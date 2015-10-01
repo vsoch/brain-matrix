@@ -29,9 +29,10 @@ svg = d3.select("#plot")
 // This is a function for tooltips
 var tip = d3.tip()
     .attr('class', 'd3-tip')
+    .attr("font-family","'Roboto', sans-serif;")
     .offset([-10, 0])
     .html(function(d) {
-        return "<strong><div style='width:200px;height:100px'><span style='color:aqua'>" + d.concept + "</span><br><span style='color:yellow'>" + d.definition +"</div></strong>";
+        return "<strong><div style='width:200px;height:100px;font-family: Roboto, sans-serif;'><span style='color:aqua'>" + d.concept + "</span><br><span style='color:yellow'>" + d.definition +"</div></strong>";
     })
 
 // Call tooltips function
@@ -125,7 +126,6 @@ clearInterval(Game_Interval);
 $("button#pause").click(function(){
 StopMatrix();});
 $("button#play").click(function(){RunMatrix();});
- 
 })
 </script>
 <svg
