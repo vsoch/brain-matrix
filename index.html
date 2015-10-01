@@ -30,7 +30,7 @@ svg = d3.select("#plot")
 var tip = d3.tip()
     .attr('class', 'd3-tip')
     .attr("font-family","'Roboto', sans-serif;")
-    .offset([-10, 0])
+    .offset([0, 0])
     .html(function(d) {
         return "<strong><div style='width:200px;height:100px;font-family: Roboto, sans-serif;'><span style='color:aqua'>" + d.concept + "</span><br><span style='color:yellow'>" + d.definition +"</div></strong>";
     })
@@ -38,11 +38,13 @@ var tip = d3.tip()
 // Call tooltips function
 svg.call(tip);
 
+// Let's add the concepts to the text in the matrix!
+var concepts = [];
 
 // Read in tsv file to "data"
 d3.tsv("data/data.tsv", function(error,data) {
     data.forEach(function(d) {
-        //console.log(d);
+        concepts.push(d.concept);
     })
     // Return any errors
     if(error){
@@ -56,6 +58,8 @@ d3.tsv("data/data.tsv", function(error,data) {
         .append("svg:a")
             .attr("xlink:href", function(d){return "http://www.cognitiveatlas.org/term/id/" + d.id;})
         .append("svg:g")
+        .on('mouseout.tip', tip.hide)
+        .on('mouseover.tip', tip.show)
         .append("svg:path")
         .attr("d",function(d){
            var pathy = $("#brainpath").attr("d").split(" ")
@@ -64,8 +68,6 @@ d3.tsv("data/data.tsv", function(error,data) {
          })
         .attr("width",15)
         .attr("height",15)
-        .on('mouseout.tip', tip.hide)
-        .on('mouseover.tip', tip.show)
         .on('mouseover.color', function(d) {
             d3.select(this).style("fill", "red");
         })
@@ -86,7 +88,6 @@ d3.tsv("data/data.tsv", function(error,data) {
 <script>
 $(document).ready(function(){
 
-
 var s=window.screen;
 var width = q.width=s.width;
 var height = q.height;
@@ -98,8 +99,13 @@ var draw = function () {
   ctx.fillRect(0,0,width,height);
   ctx.fillStyle='#00B4FF';
   ctx.font = '10pt Georgia';
+  var randomConcept = concepts[Math.floor(Math.random() * concepts.length)];
   yPositions.map(function(y, index){
-    text = String.fromCharCode(1e2+Math.random()*33);
+    if (index<randomConcept.length){
+        text = randomConcept[index];
+    } else {
+        text = String.fromCharCode(1e2+Math.random()*33);
+    }
     x = (index * 10)+10;
     q.getContext('2d').fillText(text, x, y);
  if(y > 100 + Math.random()*1e4)
