@@ -59,7 +59,7 @@ d3.tsv("data/data.tsv", function(error,data) {
         .data(data)
         .enter()
         .append("svg:a")
-            .attr("xlink:href", function(d){return "http://www.cognitiveatlas.org/term/id/" + d.id;})
+            .attr("xlink:href", function(d){return "https://www.cognitiveatlas.org/term/id/" + d.id;})
         .append("svg:g")
         .on('mouseout.tip', tip.hide)
         .on('mouseover.tip', tip.show)
